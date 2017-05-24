@@ -1,0 +1,16 @@
+<h2>Expense Types</h2>
+<div>
+  <label>Code:</label> <input #code />
+  <label>Description:</label> <input #description />
+  <button (click)="add(code.value,description.value); code.value=''; description.value='';">
+    Add
+  </button>
+</div>
+<ul class="heroes">
+  <li *ngFor="let type of types">
+	<span class="badge">{{type.code}}</span>
+	<span>{{type.description}}</span>
+	<a [routerLink]="['/type-update', type.id]" routerLinkActive="active">E</a>
+	<button class="delete" (click)="delete(type); $event.stopPropagation()">x</button>
+  </li>
+</ul>
