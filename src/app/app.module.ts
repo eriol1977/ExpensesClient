@@ -8,11 +8,13 @@ import { AppRoutingModule }         from './app-routing.module';
 import { ExpenseTypesService }     from './expense-types.service';
 import { ExpenseTypesComponent }     from './expense-types.component';
 import { ExpenseTypeUpdateComponent }   from './expense-type-update.component';
+import { ExpensesComponent }     from './expenses.component';
+import { ExpensesService } from './expenses.service';
 
 @NgModule({
   imports:      [ BrowserModule, HttpModule, FormsModule, AppRoutingModule ],
-  declarations: [ AppComponent, ExpenseTypesComponent, ExpenseTypeUpdateComponent ],
-  providers: 	[ ExpenseTypesService ],
+  declarations: [ AppComponent, ExpenseTypesComponent, ExpenseTypeUpdateComponent, ExpensesComponent ],
+  providers: 	[ ExpenseTypesService, ExpensesService ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
