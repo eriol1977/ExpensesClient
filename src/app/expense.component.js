@@ -18,31 +18,21 @@ var ExpenseComponent = (function () {
         this.expensesService = expensesService;
         this.route = route;
         this.location = location;
-        this.expense = this.expensesService.getNewExpense();
     }
     ExpenseComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.route.params.subscribe(function (params) {
-            _this.action = params['action'];
-            _this.id = params['id'];
-        });
-        if (this.action == 'update') {
-            this.expensesService.getExpense(this.id).then(function (expense) { return _this.expense = expense; });
-        }
-        //        this.route.params
-        //                .switchMap((params: Params) =>
-        //                 this.expensesService.getExpense(+params['id']))
-        //                .subscribe(expense => this.expense = expense);
+        this.route.params
+            .switchMap(function (params) {
+            return _this.expensesService.getExpense(+params['id']);
+        })
+            .subscribe(function (expense) { return _this.expense = expense; });
     };
     ExpenseComponent.prototype.goBack = function () {
         this.location.back();
     };
     ExpenseComponent.prototype.save = function () {
         var _this = this;
-        if (this.route.params['action'] == "add")
-            this.expensesService.update(this.expense).then(function () { return _this.goBack(); });
-        else
-            this.expensesService.create(this.expense).then(function () { return _this.goBack(); });
+        this.expensesService.update(this.expense).then(function () { return _this.goBack(); });
     };
     return ExpenseComponent;
 }());

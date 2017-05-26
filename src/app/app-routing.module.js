@@ -16,7 +16,7 @@ var routes = [
     { path: 'types', component: expense_types_component_1.ExpenseTypesComponent },
     { path: 'type-update/:id', component: expense_type_update_component_1.ExpenseTypeUpdateComponent },
     { path: 'expenses', component: expenses_component_1.ExpensesComponent },
-    { path: 'expense/:action/:id', component: expense_component_1.ExpenseComponent },
+    { path: 'expense/:id', component: expense_component_1.ExpenseComponent },
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {

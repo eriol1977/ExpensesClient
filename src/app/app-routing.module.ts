@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'types',  component: ExpenseTypesComponent },
   { path: 'type-update/:id',  component: ExpenseTypeUpdateComponent },
   { path: 'expenses',  component: ExpensesComponent },
-  { path: 'expense/:action/:id',  component: ExpenseComponent },
+  { path: 'expense/:id',  component: ExpenseComponent },
 ];
 
 @NgModule({

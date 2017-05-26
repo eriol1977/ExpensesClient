@@ -12,9 +12,7 @@ import { ExpensesService } from './expenses.service';
 })
 
 export class ExpenseComponent implements OnInit {
-    action: string;
-    id: number;
-    expense: Expense = this.expensesService.getNewExpense();
+    expense: Expense;
     
     constructor(
         private expensesService: ExpensesService,
@@ -22,19 +20,11 @@ export class ExpenseComponent implements OnInit {
         private location: Location
     ) {}
     
-    ngOnInit(): void {
-        this.route.params.subscribe(params => {
-            this.action = params['action'];
-            this.id = params['id'];
-        });
-        if(this.action == 'update') {
-            this.expensesService.getExpense(this.id).then(expense => this.expense = expense);
-        }
-        
-//        this.route.params
-//                .switchMap((params: Params) =>
-//                 this.expensesService.getExpense(+params['id']))
-//                .subscribe(expense => this.expense = expense);
+    ngOnInit(): void { 
+        this.route.params
+                .switchMap((params: Params) =>
+                 this.expensesService.getExpense(+params['id']))
+                .subscribe(expense => this.expense = expense);
     }
 
     goBack(): void {
@@ -42,10 +32,7 @@ export class ExpenseComponent implements OnInit {
     }
 
     save(): void {
-        if(this.route.params['action'] == "add")
-            this.expensesService.update(this.expense).then(() => this.goBack());
-        else
-            this.expensesService.create(this.expense).then(() => this.goBack());
+        this.expensesService.update(this.expense).then(() => this.goBack());
     }
 }
 

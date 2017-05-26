@@ -12,11 +12,13 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var expense_type_1 = require("./expense-type");
 var expense_1 = require("./expense");
+var expense_types_service_1 = require("./expense-types.service");
 require("rxjs/add/operator/toPromise");
 require("rxjs/add/operator/map");
 var ExpensesService = (function () {
-    function ExpensesService(http) {
+    function ExpensesService(http, typesService) {
         this.http = http;
+        this.typesService = typesService;
         this.url = 'http://ec2-52-41-136-68.us-west-2.compute.amazonaws.com/expenses/rest/expenses'; // URL to web api
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
@@ -38,11 +40,16 @@ var ExpensesService = (function () {
         expense.type = new expense_type_1.ExpenseType();
         return expense;
     };
-    ExpensesService.prototype.create = function (expense) {
+    ExpensesService.prototype.create = function (date, typeId, value, notes) {
+        var expense = new expense_1.Expense();
+        expense.date = date;
+        //this.typesService.getType(typeId).then(res => expense.type = res);
+        expense.value = value;
+        expense.notes = notes;
         return this.http
             .post(this.url, JSON.stringify(expense), { headers: this.headers })
             .toPromise()
-            .then(function () { return expense; })
+            .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
     ExpensesService.prototype.update = function (expense) {
@@ -56,6 +63,13 @@ var ExpensesService = (function () {
             .then(function () { return expense; })
             .catch(this.handleError);
     };
+    ExpensesService.prototype.delete = function (id) {
+        var url = this.url + "/" + id;
+        return this.http.delete(url, { headers: this.headers })
+            .toPromise()
+            .then(function () { return null; })
+            .catch(this.handleError);
+    };
     ExpensesService.prototype.handleError = function (error) {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
@@ -64,7 +78,7 @@ var ExpensesService = (function () {
 }());
 ExpensesService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, expense_types_service_1.ExpenseTypesService])
 ], ExpensesService);
 exports.ExpensesService = ExpensesService;
 //# sourceMappingURL=expenses.service.js.map

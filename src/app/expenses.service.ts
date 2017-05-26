@@ -3,6 +3,7 @@ import {Headers, Http} from '@angular/http';
 
 import {ExpenseType} from './expense-type';
 import {Expense} from './expense';
+import { ExpenseTypesService } from './expense-types.service';
 
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
@@ -13,7 +14,7 @@ export class ExpensesService {
 
     private headers = new Headers({'Content-Type': 'application/json'});
 
-    constructor(private http: Http) {}
+    constructor(private http: Http, private typesService: ExpenseTypesService) {}
     
     getExpenses(): Promise<Expense[]> {
         return this.http.get(this.url)
@@ -35,12 +36,17 @@ export class ExpensesService {
         expense.type = new ExpenseType();
         return expense;
     }
-    
-    create(expense: Expense): Promise<Expense> {
+        
+    create(date: string, typeId: number, value: number, notes: string): Promise<Expense> {
+        var expense = new Expense();
+        expense.date = date;
+        //this.typesService.getType(typeId).then(res => expense.type = res);
+        expense.value = value;
+        expense.notes = notes;
         return this.http
                 .post(this.url, JSON.stringify(expense), {headers: this.headers})
                 .toPromise()
-                .then(() => expense)
+                .then(response => response.json() as Expense)
                 .catch(this.handleError);
     }
     
@@ -53,6 +59,14 @@ export class ExpensesService {
                 .put(url, JSON.stringify(expense), {headers: this.headers})
                 .toPromise()
                 .then(() => expense)
+                .catch(this.handleError);
+    }
+    
+    delete(id: number): Promise<void> {
+        const url = `${this.url}/${id}`;
+        return this.http.delete(url, {headers: this.headers})
+                .toPromise()
+                .then(() => null)
                 .catch(this.handleError);
     }
     

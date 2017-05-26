@@ -1,5 +1,13 @@
 <h2>Expenses</h2>
-<a [routerLink]="['/expense', 'add', -1]">Add</a>
+<div>
+  <label>Date:</label> <input #date />
+  <label>Type Id:</label> <input #typeId />
+  <label>Value:</label> <input #val />
+  <label>Notes:</label> <input #notes />
+  <button (click)="addExpense(date.value,typeId.value,val.value,notes.value); date.value=''; typeId.value=''; val.value=''; notes.value='';">
+    Add
+  </button>
+</div>
 <table border="1">
     <tr *ngFor="let exp of expenses">
             <td>{{exp.date | date}}</td>
@@ -7,5 +15,6 @@
             <td style="text-align: right">{{exp.value | number:'1.2-2'}}</td>
             <td>{{exp.notes}}</td>
             <td><a [routerLink]="['/expense', 'update', exp.id]">E</a></td>
+            <td><a (click)="deleteExpense(exp); $event.stopPropagation()">X</a></td>
     </tr>
 </table>

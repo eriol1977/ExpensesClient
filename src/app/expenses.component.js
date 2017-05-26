@@ -19,6 +19,28 @@ var ExpensesComponent = (function () {
         var _this = this;
         this.expensesService.getExpenses().then(function (expenses) { return _this.expenses = expenses; });
     };
+    ExpensesComponent.prototype.addExpense = function (date, typeId, value, notes) {
+        var _this = this;
+        if (!date || !typeId || !value || !notes) {
+            return;
+        }
+        this.expensesService.create(date, typeId, value, notes)
+            .then(function (expense) {
+            _this.expenses.push(expense);
+            _this.selectedExpense = null;
+        });
+    };
+    ExpensesComponent.prototype.deleteExpense = function (expense) {
+        var _this = this;
+        this.expensesService
+            .delete(expense.id)
+            .then(function () {
+            _this.expenses = _this.expenses.filter(function (e) { return e !== expense; });
+            if (_this.selectedExpense === expense) {
+                _this.selectedExpense = null;
+            }
+        });
+    };
     ExpensesComponent.prototype.ngOnInit = function () {
         this.getExpenses();
     };
