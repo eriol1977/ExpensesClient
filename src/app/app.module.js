@@ -16,6 +16,7 @@ var expense_types_component_1 = require("./expense-types.component");
 var expense_type_update_component_1 = require("./expense-type-update.component");
 var expenses_component_1 = require("./expenses.component");
 var expenses_service_1 = require("./expenses.service");
+var expense_component_1 = require("./expense.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -24,7 +25,7 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule, app_routing_module_1.AppRoutingModule],
-        declarations: [app_component_1.AppComponent, expense_types_component_1.ExpenseTypesComponent, expense_type_update_component_1.ExpenseTypeUpdateComponent, expenses_component_1.ExpensesComponent],
+        declarations: [app_component_1.AppComponent, expense_types_component_1.ExpenseTypesComponent, expense_type_update_component_1.ExpenseTypeUpdateComponent, expenses_component_1.ExpensesComponent, expense_component_1.ExpenseComponent],
         providers: [expense_types_service_1.ExpenseTypesService, expenses_service_1.ExpensesService],
         bootstrap: [app_component_1.AppComponent]
     })

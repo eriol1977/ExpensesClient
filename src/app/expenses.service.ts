@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Headers, Http} from '@angular/http';
 
+import {ExpenseType} from './expense-type';
 import {Expense} from './expense';
 
 import 'rxjs/add/operator/toPromise';
@@ -19,6 +20,40 @@ export class ExpensesService {
                            .toPromise()
                            .then(response => response.json() as Expense[])
                            .catch(this.handleError);
+    }
+    
+    getExpense(id: number): Promise<Expense> {
+        const url = `${this.url}/${id}`;
+        return this.http.get(url)
+                .toPromise()
+                .then(response => response.json() as Expense)
+                .catch(this.handleError);
+    }
+    
+    getNewExpense(): Expense {
+        var expense = new Expense();
+        expense.type = new ExpenseType();
+        return expense;
+    }
+    
+    create(expense: Expense): Promise<Expense> {
+        return this.http
+                .post(this.url, JSON.stringify(expense), {headers: this.headers})
+                .toPromise()
+                .then(() => expense)
+                .catch(this.handleError);
+    }
+    
+    update(expense: Expense): Promise<Expense> {
+        const url = `${this.url}`;
+        //var dateParts = expense.stringDate.split('-');
+        //expense.date = new Date(parseInt(dateParts[0]),parseInt(dateParts[1])-1,parseInt(dateParts[2]));
+        //console.log(JSON.stringify(expense));
+        return this.http
+                .put(url, JSON.stringify(expense), {headers: this.headers})
+                .toPromise()
+                .then(() => expense)
+                .catch(this.handleError);
     }
     
     private handleError(error: any): Promise<any> {

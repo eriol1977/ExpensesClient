@@ -1,0 +1,21 @@
+<div *ngIf="expense">
+    <h2>Expense details</h2>
+    <div>
+            <label>Date: </label>
+            <input type="date" [(ngModel)]="expense.date" placeholder="date"/>
+    </div>
+    <div>
+            <label>Type: </label>
+            <input [(ngModel)]="expense.type.code" placeholder="type"/>
+    </div>
+    <div>
+            <label>Value: </label>
+            <input [(ngModel)]="expense.value" placeholder="value"/>
+    </div>
+    <div>
+            <label>Notes: </label>
+            <input [(ngModel)]="expense.notes" placeholder="notes"/>
+    </div>
+    <button (click)="goBack()">Back</button>
+    <button (click)="save()">Save</button>
+</div>
