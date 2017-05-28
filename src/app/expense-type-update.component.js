@@ -38,8 +38,7 @@ var ExpenseTypeUpdateComponent = (function () {
 ExpenseTypeUpdateComponent = __decorate([
     core_1.Component({
         selector: 'expense-type-update',
-        templateUrl: './expense-type-update.component.html',
-        styleUrls: ['./expense-type-update.component.css']
+        templateUrl: './expense-type-update.component.html'
     }),
     __metadata("design:paramtypes", [expense_types_service_1.ExpenseTypesService,
         router_1.ActivatedRoute,

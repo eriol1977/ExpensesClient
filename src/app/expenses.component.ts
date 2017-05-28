@@ -8,8 +8,7 @@ import { ExpenseTypesService } from './expense-types.service';
 
 @Component({
   selector: 'expenses',
-  templateUrl: './expenses.component.html',
-  styleUrls: [ './expenses.component.css' ]
+  templateUrl: './expenses.component.html'
 })
 
 export class ExpensesComponent { 

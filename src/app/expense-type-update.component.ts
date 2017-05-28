@@ -7,8 +7,7 @@ import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'expense-type-update',
-  templateUrl: './expense-type-update.component.html',
-  styleUrls: [ './expense-type-update.component.css' ]
+  templateUrl: './expense-type-update.component.html'
 })
 
 export class ExpenseTypeUpdateComponent implements OnInit {

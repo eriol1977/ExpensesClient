@@ -9,17 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var expense_types_service_1 = require("./expense-types.service");
 var ExpenseTypesComponent = (function () {
-    function ExpenseTypesComponent(expenseTypesService) {
+    function ExpenseTypesComponent(expenseTypesService, router) {
         this.expenseTypesService = expenseTypesService;
+        this.router = router;
         this.types = [];
     }
     ExpenseTypesComponent.prototype.getTypes = function () {
         var _this = this;
         this.expenseTypesService.getTypes().then(function (types) { return _this.types = types; });
     };
-    ExpenseTypesComponent.prototype.add = function (code, description) {
+    ExpenseTypesComponent.prototype.addType = function (code, description) {
         var _this = this;
         code = code.trim();
         description = description.trim();
@@ -32,7 +34,7 @@ var ExpenseTypesComponent = (function () {
             _this.selectedType = null;
         });
     };
-    ExpenseTypesComponent.prototype.delete = function (type) {
+    ExpenseTypesComponent.prototype.deleteType = function (type) {
         var _this = this;
         this.expenseTypesService
             .delete(type.id)
@@ -43,6 +45,9 @@ var ExpenseTypesComponent = (function () {
             }
         });
     };
+    ExpenseTypesComponent.prototype.updateType = function (type) {
+        this.router.navigateByUrl('/type-update/' + type.id);
+    };
     ExpenseTypesComponent.prototype.ngOnInit = function () {
         this.getTypes();
     };
@@ -51,10 +56,9 @@ var ExpenseTypesComponent = (function () {
 ExpenseTypesComponent = __decorate([
     core_1.Component({
         selector: 'expense-types',
-        templateUrl: './expense-types.component.html',
-        styleUrls: ['./expense-types.component.css']
+        templateUrl: './expense-types.component.html'
     }),
-    __metadata("design:paramtypes", [expense_types_service_1.ExpenseTypesService])
+    __metadata("design:paramtypes", [expense_types_service_1.ExpenseTypesService, router_1.Router])
 ], ExpenseTypesComponent);
 exports.ExpenseTypesComponent = ExpenseTypesComponent;
 //# sourceMappingURL=expense-types.component.js.map

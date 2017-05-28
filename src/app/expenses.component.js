@@ -61,8 +61,7 @@ var ExpensesComponent = (function () {
 ExpensesComponent = __decorate([
     core_1.Component({
         selector: 'expenses',
-        templateUrl: './expenses.component.html',
-        styleUrls: ['./expenses.component.css']
+        templateUrl: './expenses.component.html'
     }),
     __metadata("design:paramtypes", [expenses_service_1.ExpensesService, expense_types_service_1.ExpenseTypesService, router_1.Router])
 ], ExpensesComponent);
