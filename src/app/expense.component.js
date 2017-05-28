@@ -13,9 +13,11 @@ var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
 require("rxjs/add/operator/switchMap");
 var expenses_service_1 = require("./expenses.service");
+var expense_types_service_1 = require("./expense-types.service");
 var ExpenseComponent = (function () {
-    function ExpenseComponent(expensesService, route, location) {
+    function ExpenseComponent(expensesService, typesService, route, location) {
         this.expensesService = expensesService;
+        this.typesService = typesService;
         this.route = route;
         this.location = location;
     }
@@ -26,6 +28,7 @@ var ExpenseComponent = (function () {
             return _this.expensesService.getExpense(+params['id']);
         })
             .subscribe(function (expense) { return _this.expense = expense; });
+        this.typesService.getTypes().then(function (types) { return _this.types = types; });
     };
     ExpenseComponent.prototype.goBack = function () {
         this.location.back();
@@ -33,6 +36,9 @@ var ExpenseComponent = (function () {
     ExpenseComponent.prototype.save = function () {
         var _this = this;
         this.expensesService.update(this.expense).then(function () { return _this.goBack(); });
+    };
+    ExpenseComponent.prototype.compareTypes = function (type1, type2) {
+        return type1 && type2 ? type1.id === type2.id : type1 === type2;
     };
     return ExpenseComponent;
 }());
@@ -42,6 +48,7 @@ ExpenseComponent = __decorate([
         templateUrl: './expense.component.html'
     }),
     __metadata("design:paramtypes", [expenses_service_1.ExpensesService,
+        expense_types_service_1.ExpenseTypesService,
         router_1.ActivatedRoute,
         common_1.Location])
 ], ExpenseComponent);

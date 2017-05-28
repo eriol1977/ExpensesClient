@@ -40,10 +40,10 @@ var ExpensesService = (function () {
         expense.type = new expense_type_1.ExpenseType();
         return expense;
     };
-    ExpensesService.prototype.create = function (date, typeId, value, notes) {
+    ExpensesService.prototype.create = function (date, expType, value, notes) {
         var expense = new expense_1.Expense();
         expense.date = date;
-        //this.typesService.getType(typeId).then(res => expense.type = res);
+        expense.type = expType;
         expense.value = value;
         expense.notes = notes;
         return this.http
@@ -54,9 +54,6 @@ var ExpensesService = (function () {
     };
     ExpensesService.prototype.update = function (expense) {
         var url = "" + this.url;
-        //var dateParts = expense.stringDate.split('-');
-        //expense.date = new Date(parseInt(dateParts[0]),parseInt(dateParts[1])-1,parseInt(dateParts[2]));
-        //console.log(JSON.stringify(expense));
         return this.http
             .put(url, JSON.stringify(expense), { headers: this.headers })
             .toPromise()

@@ -9,22 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var expenses_service_1 = require("./expenses.service");
+var expense_types_service_1 = require("./expense-types.service");
 var ExpensesComponent = (function () {
-    function ExpensesComponent(expensesService) {
+    function ExpensesComponent(expensesService, typesService, router) {
         this.expensesService = expensesService;
+        this.typesService = typesService;
+        this.router = router;
         this.expenses = [];
     }
     ExpensesComponent.prototype.getExpenses = function () {
         var _this = this;
         this.expensesService.getExpenses().then(function (expenses) { return _this.expenses = expenses; });
     };
-    ExpensesComponent.prototype.addExpense = function (date, typeId, value, notes) {
+    ExpensesComponent.prototype.getTypes = function () {
         var _this = this;
-        if (!date || !typeId || !value || !notes) {
+        this.typesService.getTypes().then(function (types) { return _this.types = types; });
+    };
+    ExpensesComponent.prototype.addExpense = function (date, value, notes) {
+        var _this = this;
+        if (!date || !this.selectedType || !value) {
             return;
         }
-        this.expensesService.create(date, typeId, value, notes)
+        this.expensesService.create(date, this.selectedType, value, notes)
             .then(function (expense) {
             _this.expenses.push(expense);
             _this.selectedExpense = null;
@@ -43,6 +51,10 @@ var ExpensesComponent = (function () {
     };
     ExpensesComponent.prototype.ngOnInit = function () {
         this.getExpenses();
+        this.getTypes();
+    };
+    ExpensesComponent.prototype.updateExpense = function (expense) {
+        this.router.navigateByUrl('/expense/' + expense.id);
     };
     return ExpensesComponent;
 }());
@@ -52,7 +64,7 @@ ExpensesComponent = __decorate([
         templateUrl: './expenses.component.html',
         styleUrls: ['./expenses.component.css']
     }),
-    __metadata("design:paramtypes", [expenses_service_1.ExpensesService])
+    __metadata("design:paramtypes", [expenses_service_1.ExpensesService, expense_types_service_1.ExpenseTypesService, router_1.Router])
 ], ExpensesComponent);
 exports.ExpensesComponent = ExpensesComponent;
 //# sourceMappingURL=expenses.component.js.map

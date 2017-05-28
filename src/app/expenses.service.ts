@@ -37,10 +37,10 @@ export class ExpensesService {
         return expense;
     }
         
-    create(date: string, typeId: number, value: number, notes: string): Promise<Expense> {
+    create(date: string, expType: ExpenseType, value: number, notes: string): Promise<Expense> {
         var expense = new Expense();
         expense.date = date;
-        //this.typesService.getType(typeId).then(res => expense.type = res);
+        expense.type = expType;
         expense.value = value;
         expense.notes = notes;
         return this.http
@@ -52,9 +52,6 @@ export class ExpensesService {
     
     update(expense: Expense): Promise<Expense> {
         const url = `${this.url}`;
-        //var dateParts = expense.stringDate.split('-');
-        //expense.date = new Date(parseInt(dateParts[0]),parseInt(dateParts[1])-1,parseInt(dateParts[2]));
-        //console.log(JSON.stringify(expense));
         return this.http
                 .put(url, JSON.stringify(expense), {headers: this.headers})
                 .toPromise()
