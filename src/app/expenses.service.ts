@@ -31,6 +31,14 @@ export class ExpensesService {
                 .catch(this.handleError);
     }
     
+    getExpensesByDate(date: string): Promise<Expense[]> {
+        const url = `${this.url}/bydate/${date}`;
+        return this.http.get(url)
+                           .toPromise()
+                           .then(response => response.json() as Expense[])
+                           .catch(this.handleError);
+    }
+    
     getNewExpense(): Expense {
         var expense = new Expense();
         expense.type = new ExpenseType();

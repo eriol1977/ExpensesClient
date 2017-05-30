@@ -1,5 +1,10 @@
 <h2>Expenses</h2>
 
+<input type="date" [(ngModel)]="selectedDate" (ngModelChange)="onChangeDate($event)" [disabled]="showAll"/>
+<input type="checkbox" [(ngModel)]="showAll" (change)="onShowAllChanged()" /><label>Show all</label>
+<br/><br/>
+
+
 <table>
     <tr>
         <td>Date:</td>

@@ -23,6 +23,10 @@ var ExpensesComponent = (function () {
         var _this = this;
         this.expensesService.getExpenses().then(function (expenses) { return _this.expenses = expenses; });
     };
+    ExpensesComponent.prototype.getExpensesByDate = function (date) {
+        var _this = this;
+        this.expensesService.getExpensesByDate(date).then(function (expenses) { return _this.expenses = expenses; });
+    };
     ExpensesComponent.prototype.getTypes = function () {
         var _this = this;
         this.typesService.getTypes().then(function (types) { return _this.types = types; });
@@ -50,11 +54,23 @@ var ExpensesComponent = (function () {
         });
     };
     ExpensesComponent.prototype.ngOnInit = function () {
-        this.getExpenses();
+        this.selectedDate = new Date().toISOString().substring(0, 10);
+        this.getExpensesByDate(this.selectedDate);
         this.getTypes();
     };
     ExpensesComponent.prototype.updateExpense = function (expense) {
         this.router.navigateByUrl('/expense/' + expense.id);
+    };
+    ExpensesComponent.prototype.onChangeDate = function (date) {
+        this.selectedDate = date;
+        this.showAll = false;
+        this.getExpensesByDate(this.selectedDate);
+    };
+    ExpensesComponent.prototype.onShowAllChanged = function () {
+        if (this.showAll)
+            this.getExpenses();
+        else
+            this.getExpensesByDate(this.selectedDate);
     };
     return ExpensesComponent;
 }());

@@ -16,11 +16,17 @@ export class ExpensesComponent {
     selectedExpense: Expense;
     types: ExpenseType[];
     selectedType: ExpenseType;
+    selectedDate: string;
+    showAll: boolean;
     
     constructor(private expensesService: ExpensesService, private typesService: ExpenseTypesService, private router: Router) { }
     
     getExpenses(): void {
         this.expensesService.getExpenses().then(expenses => this.expenses = expenses);
+    }
+    
+    getExpensesByDate(date: string): void {
+        this.expensesService.getExpensesByDate(date).then(expenses => this.expenses = expenses);
     }
     
     getTypes(): void {
@@ -46,11 +52,25 @@ export class ExpensesComponent {
     }
     
     ngOnInit(): void {
-        this.getExpenses();
+        this.selectedDate = new Date().toISOString().substring(0, 10);
+        this.getExpensesByDate(this.selectedDate);
         this.getTypes();
     }
     
     updateExpense(expense: Expense): void {
         this.router.navigateByUrl('/expense/' + expense.id);
+    }
+    
+    onChangeDate(date: string): void {
+        this.selectedDate = date;
+        this.showAll = false;
+        this.getExpensesByDate(this.selectedDate);
+    }
+    
+    onShowAllChanged(): void {
+        if (this.showAll)
+            this.getExpenses();
+        else
+            this.getExpensesByDate(this.selectedDate);
     }
 }

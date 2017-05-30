@@ -35,6 +35,13 @@ var ExpensesService = (function () {
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    ExpensesService.prototype.getExpensesByDate = function (date) {
+        var url = this.url + "/bydate/" + date;
+        return this.http.get(url)
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
     ExpensesService.prototype.getNewExpense = function () {
         var expense = new expense_1.Expense();
         expense.type = new expense_type_1.ExpenseType();
