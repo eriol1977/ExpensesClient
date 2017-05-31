@@ -8,12 +8,12 @@
 <table>
     <tr>
         <td>Date:</td>
-        <td><input type="date" #date /></td>
+        <td><input type="date" #date [value]="selectedDate"/></td>
     </tr>
     <tr>
         <td>Type Id:</td>
         <td>
-            <select [(ngModel)]="selectedType">
+            <select [(ngModel)]="selectedType" #type>
                 <option *ngFor="let type of types" [ngValue]="type">
                     {{type.description}}
                 </option>
@@ -22,14 +22,14 @@
     </tr>
     <tr>
         <td>Value:</td>
-        <td><input #val /></td>
+        <td><input type="number" #val /></td>
     </tr>
     <tr>
         <td>Notes:</td>
         <td><input #notes /></td>
     </tr>
 </table>
-<button (click)="addExpense(date.value,val.value,notes.value); date.value=''; val.value=''; notes.value='';">Add</button>
+<button (click)="addExpense(date.value,val.value,notes.value);">Add</button>
 
 <br/><br/><hr/><br/>
 

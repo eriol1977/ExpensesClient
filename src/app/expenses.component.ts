@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Expense } from './expense';
@@ -18,6 +18,12 @@ export class ExpensesComponent {
     selectedType: ExpenseType;
     selectedDate: string;
     showAll: boolean;
+    
+    // used to reset the Add Expense fields
+    @ViewChild('date')date: string;
+    @ViewChild('type')type: ExpenseType;
+    @ViewChild('val')val: number;
+    @ViewChild('notes')notes: string;
     
     constructor(private expensesService: ExpensesService, private typesService: ExpenseTypesService, private router: Router) { }
     
@@ -40,6 +46,12 @@ export class ExpensesComponent {
                 this.expenses.push(expense);
                 this.selectedExpense = null;
               });
+              
+        // resets the Add Expense fields
+        this.date.nativeElement.value = this.selectedDate;
+        this.type.nativeElement.value = null;
+        this.val.nativeElement.value = 0.00;
+        this.notes.nativeElement.value = "";
     }
     
     deleteExpense(expense: Expense): void {

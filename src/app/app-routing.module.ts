@@ -6,7 +6,7 @@ import { ExpensesComponent }   from './expenses.component';
 import { ExpenseComponent }   from './expense.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/types', pathMatch: 'full' },
+  { path: '', redirectTo: '/expenses', pathMatch: 'full' },
   { path: 'types',  component: ExpenseTypesComponent },
   { path: 'type-update/:id',  component: ExpenseTypeUpdateComponent },
   { path: 'expenses',  component: ExpensesComponent },

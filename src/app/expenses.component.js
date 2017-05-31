@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var expense_type_1 = require("./expense-type");
 var expenses_service_1 = require("./expenses.service");
 var expense_types_service_1 = require("./expense-types.service");
 var ExpensesComponent = (function () {
@@ -41,6 +42,11 @@ var ExpensesComponent = (function () {
             _this.expenses.push(expense);
             _this.selectedExpense = null;
         });
+        // resets the Add Expense fields
+        this.date.nativeElement.value = this.selectedDate;
+        this.type.nativeElement.value = null;
+        this.val.nativeElement.value = 0.00;
+        this.notes.nativeElement.value = "";
     };
     ExpensesComponent.prototype.deleteExpense = function (expense) {
         var _this = this;
@@ -74,6 +80,22 @@ var ExpensesComponent = (function () {
     };
     return ExpensesComponent;
 }());
+__decorate([
+    core_1.ViewChild('date'),
+    __metadata("design:type", String)
+], ExpensesComponent.prototype, "date", void 0);
+__decorate([
+    core_1.ViewChild('type'),
+    __metadata("design:type", expense_type_1.ExpenseType)
+], ExpensesComponent.prototype, "type", void 0);
+__decorate([
+    core_1.ViewChild('val'),
+    __metadata("design:type", Number)
+], ExpensesComponent.prototype, "val", void 0);
+__decorate([
+    core_1.ViewChild('notes'),
+    __metadata("design:type", String)
+], ExpensesComponent.prototype, "notes", void 0);
 ExpensesComponent = __decorate([
     core_1.Component({
         selector: 'expenses',

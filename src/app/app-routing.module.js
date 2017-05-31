@@ -12,7 +12,7 @@ var expense_type_update_component_1 = require("./expense-type-update.component")
 var expenses_component_1 = require("./expenses.component");
 var expense_component_1 = require("./expense.component");
 var routes = [
-    { path: '', redirectTo: '/types', pathMatch: 'full' },
+    { path: '', redirectTo: '/expenses', pathMatch: 'full' },
     { path: 'types', component: expense_types_component_1.ExpenseTypesComponent },
     { path: 'type-update/:id', component: expense_type_update_component_1.ExpenseTypeUpdateComponent },
     { path: 'expenses', component: expenses_component_1.ExpensesComponent },
